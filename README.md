@@ -8,9 +8,9 @@ Some features:
 * Clients control
 * Groups control
 * Access control
-* Services control (URI / Version / type)
+* Resources control (URI / Version / Type)
 * Rules Engine
 * Routes Engine 
 * Cache provider
 * Call scheduler
-* Data shared (Common information / domain)
+* Data shared (Common Information / Domain)
