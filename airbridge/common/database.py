@@ -17,7 +17,9 @@ limitations under the License.
 
 from flask.ext.mongoengine import MongoEngine
 
+
 db = MongoEngine()
+
 
 def set_db(app):
   db.init_app(app)

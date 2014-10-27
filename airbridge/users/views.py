@@ -1,34 +1,48 @@
 # -*- config:utf-8 -*-
 """
-Copyright 2014 Airbridge
+  Copyright 2014 Airbridge
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+      http://www.apache.org/licenses/LICENSE-2.0
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
 """
 
+from flask import Blueprint
 
-from flask import Blueprint, jsonify
-from mongoengine.queryset import base
+from ..common.api import Api, Resource
 from .models import User
 
-user = Blueprint('user', __name__)
+
+users = Blueprint('users', __name__, url_prefix='/users')
+api = Api(users)
 
 
-@user.route('/', methods = ['GET'])
-def test_get_data():
-  return 'test data'
+class UserAPI(Resource):
+
+  def post(self):
+    return {'username': 'post'}
+
+  def get(self, username):
+    if username is None:
+      return User.objects.all().to_json(), 200
+    return User.objects.get_or_404(username=username).to_json()
+
+  def put(self, username):
+    print('put ' + username)
+    return
+
+  def delete(self, username):
+    print('delete ' + username)
+    return
 
 
-@user.route('/db', methods = ['GET'])
-def test_get_db():
-  users = User.objects.all().to_json()
-  return jsonify({'users': users})
+# Routes
+api.set_routes(UserAPI, '/', pk='username')
