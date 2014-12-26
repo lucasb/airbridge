@@ -20,7 +20,6 @@ from flask import Flask
 from werkzeug.utils import import_string
 
 from airbridge.common.database import set_db
-from airbridge.common.api import HttpError
 
 
 def create_app(module):
@@ -29,7 +28,6 @@ def create_app(module):
     app.config.from_pyfile('config.cfg')
 
     set_db(app)
-    HttpError(app)
 
     blueprint = import_string('airbridge.{0}.views.{0}'.format(module))
     app.register_blueprint(blueprint)

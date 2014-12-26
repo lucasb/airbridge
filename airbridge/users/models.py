@@ -20,8 +20,8 @@ from airbridge.common.database import db
 
 class User(db.Document):
 
-    fisrt_name = db.StringField(required=False)
-    last_name = db.StringField(required=False)
-    username = db.StringField(required=False)
-    email = db.StringField(required=True)
+    email = db.EmailField(primary_key=True)
+    username = db.StringField(unique=True)
     password = db.StringField(required=True)
+    first_name = db.StringField(required=False)
+    last_name = db.StringField(required=False)

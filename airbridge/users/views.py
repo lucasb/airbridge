@@ -16,33 +16,43 @@
 """
 
 from flask import Blueprint
+from flask.ext.restful import Api
 
-from ..common.api import Api, Resource
+from ..common.utils import request, response, Resource
 from .models import User
 
 
-users = Blueprint('users', __name__, url_prefix='/users')
+users = Blueprint('users', __name__)
 api = Api(users)
+
+
+class UserListAPI(Resource):
+
+    def post(self):
+        user = request(User)
+        user = user.save()
+        return response(user, 201)
+
+    def get(self):
+        return response(User.objects.all())
 
 
 class UserAPI(Resource):
 
-    def post(self):
-        return {'username': 'post'}
-
     def get(self, username):
-        if username is None:
-            return User.objects.all()
-        return User.objects.get_or_404(username=username)
+        return response(User.objects.get_or_404(username=username))
 
     def put(self, username):
-        print('put ' + username)
-        return
+        user = request(User)
+        user.update()
+        return response(user)
 
     def delete(self, username):
-        print('delete ' + username)
-        return
+        user = User.get(username=username)
+        user.delete()
+        return response(user)
 
 
 # Routes
-api.set_routes(UserAPI, '/', pk='username')
+api.add_resource(UserListAPI, '/users')
+api.add_resource(UserAPI, '/users/<string:username>')
