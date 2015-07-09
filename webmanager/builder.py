@@ -25,7 +25,7 @@ from airbridge.common.database import set_db
 def create_app(module):
 
     app = Flask('airbridge')
-    app.config.from_pyfile('config.cfg')
+    app.config.from_pyfile('config.cfg.py')
 
     set_db(app)
 

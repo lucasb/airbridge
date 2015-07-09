@@ -14,3 +14,17 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 """
+
+from airbridge.common.database import db
+
+
+class User(db.Document):
+    email = db.EmailField(primary_key=True)
+    username = db.StringField(unique=True)
+    password = db.StringField(required=True)
+    first_name = db.StringField(required=False)
+    last_name = db.StringField(required=False)
+
+
+class Client(db.Document):
+    client_id = db.StringField(primary_key=True)

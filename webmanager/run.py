@@ -15,13 +15,11 @@
     limitations under the License.
 """
 
-from airbridge.common.database import db
+from airbridge.builder import create_app
 
 
-class User(db.Document):
-
-    email = db.EmailField(primary_key=True)
-    username = db.StringField(unique=True)
-    password = db.StringField(required=True)
-    first_name = db.StringField(required=False)
-    last_name = db.StringField(required=False)
+app = create_app('users')
+app.run(host=app.config['RUN_HOST'],
+        port=app.config['RUN_PORT'],
+        use_reloader=app.config['RUN_USE_RELOADER'],
+        debug=app.config['RUN_DEBUG'])

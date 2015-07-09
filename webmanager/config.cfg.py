@@ -14,3 +14,20 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 """
+
+
+# Application
+APPLICATION_ROOT = '/api/'
+
+# Run server
+RUN_DEBUG = True
+RUN_USE_RELOADER = True
+RUN_HOST = 'localhost'
+RUN_PORT = 5000
+
+# MongoDB
+MONGODB_HOST = 'localhost'
+MONGODB_PORT = 27017
+MONGODB_DB = 'airbridge'
+MONGODB_USERNAME = None
+PASSWORD = None

@@ -12,5 +12,24 @@
     distributed under the License is distributed on an "AS IS" BASIS,
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
-    limitations under the Licenseself.
+    limitations under the License.
 """
+
+from flask import Flask
+
+from werkzeug.utils import import_string
+
+from airbridge.common.database import set_db
+
+
+def create_app(module):
+
+    app = Flask('airbridge')
+    app.config.from_pyfile('config.cfg.py')
+
+    set_db(app)
+
+    blueprint = import_string('airbridge.{0}.views.{0}'.format(module))
+    app.register_blueprint(blueprint)
+
+    return app
