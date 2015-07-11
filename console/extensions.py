@@ -21,9 +21,3 @@ from flask.ext.bcrypt import Bcrypt
 
 db = MongoEngine()
 bcrypt = Bcrypt()
-
-def init_db(app):
-    db.init_app(app)
-
-def init_bcrypt(app):
-    bcrypt.init_app(app)

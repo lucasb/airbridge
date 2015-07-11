@@ -18,7 +18,7 @@
 import sys
 
 from api.builder import create_app as build_api
-from console.builder import create_app as build_consele
+from console.builder import create_app as build_console
 
 
 module = str(sys.argv[1]) if len(sys.argv) > 1 else None
