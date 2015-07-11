@@ -23,7 +23,7 @@ APPLICATION_ROOT = '/api/'
 RUN_DEBUG = True
 RUN_USE_RELOADER = True
 RUN_HOST = 'localhost'
-RUN_PORT = 5000
+RUN_PORT = 5001
 
 # MongoDB
 MONGODB_HOST = 'localhost'
