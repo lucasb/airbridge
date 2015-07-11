@@ -1,6 +1,6 @@
 # -*- config:utf-8 -*-
 """
-    Copyright 2014 Airbridge
+    Copyright 2015 Airbridge
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
