@@ -19,13 +19,13 @@ from flask import Flask
 
 from werkzeug.utils import import_string
 
-from fleegme.common.extensions import init_db, init_bcrypt, init_api
+#from fleegme.common.extensions import init_db, init_bcrypt, init_api
 
 
 def create_app(module=None):
 
     # Initialize applcation
-    app = Flask('fleegme')
+    app = Flask('api')
     app.config.from_pyfile('config.cfg')
 
     # Register modules
@@ -47,4 +47,4 @@ def create_app(module=None):
 
 
 def __build_blueprint(module):
-    return import_string('fleegme.{0}.controllers.{0}'.format(module))
+    return import_string('api.{0}.controllers.{0}'.format(module))

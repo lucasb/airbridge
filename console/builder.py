@@ -25,27 +25,16 @@ from console.extensions import bcrypt, db
 app_name = 'console'
 
 
-def create_app():
+def create_app(filename):
     """Initialize applcation with configs"""
     app = Flask(app_name)
-    app.config.from_pyfile('config.cfg')
+    app.config.from_pyfile(filename)
 
     configure_blueprints(app)
     configure_extensions(app)
     configure_logger(app)
 
     return app
-
-
-def configure_logger(app):
-    """Create log file to application"""
-    log_filename = "%s_log" % app.config['PROJECT_NAME'] + app_name
-    log_file = logging.FileHandler(
-                            filename=app.config['LOG_PATH'] % log_filename)
-    log_file.setFormatter(logging.Formatter(app.config['LOG_FORMAT']))
-    log_level = loggin.DEBUG if app.config['CONSOLE_RUN_DEBUG'] else logging.INFO
-    log_file.setLevel(log_level)
-    app.logger.addHandler(log_file)
 
 
 def configure_blueprints(app):
@@ -60,3 +49,14 @@ def configure_extensions(app):
     """Initialize extensions"""
     bcrypt.init_app(app)
     db.init_app(app)
+
+
+def configure_logger(app):
+    """Create log file to application"""
+    log_filename = "%s_log" % app.config['PROJECT_NAME'] + app_name
+    log_file = logging.FileHandler(
+                            filename=app.config['LOG_PATH'] % log_filename)
+    log_file.setFormatter(logging.Formatter(app.config['LOG_FORMAT']))
+    log_level = logging.DEBUG if app.config['CONSOLE_RUN_DEBUG'] else logging.INFO
+    log_file.setLevel(log_level)
+    app.logger.addHandler(log_file)

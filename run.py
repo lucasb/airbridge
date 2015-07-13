@@ -21,10 +21,23 @@ from api.builder import create_app as build_api
 from console.builder import create_app as build_console
 
 
-module = str(sys.argv[1]) if len(sys.argv) > 1 else None
-app = create_app(module)
+APPS = {
+    'api',
+    'console'
+}
 
-app.run(host=app.config['RUN_HOST'],
-        port=app.config['RUN_PORT'],
-        use_reloader=app.config['RUN_USE_RELOADER'],
-        debug=app.config['RUN_DEBUG'])
+config_file = '../config.cfg'
+
+if len(sys.argv) > 1:
+    APPS = list({str(sys.argv[1])})
+
+try:
+    for item in APPS:
+        app = getattr(sys.modules[__name__], "build_%s" % item)([config_file])
+        item = item.upper()
+        app.run(host=app.config['%s_RUN_HOST' % item],
+                port=app.config['%s_RUN_PORT' % item],
+                use_reloader=app.config['%s_RUN_USE_RELOADER' % item],
+                debug=app.config['%s_RUN_DEBUG' % item])
+except Exception:
+    raise Exception('Errors found in application start.')
