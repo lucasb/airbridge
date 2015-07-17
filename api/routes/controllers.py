@@ -18,15 +18,12 @@
 from flask import Blueprint
 from flask.ext.restful import Api
 
-from ..common.utils import request, response, Resource
-from .models import User
+
+routes = Blueprint('routes', __name__)
+api = Api(routes)
 
 
-users = Blueprint('users', __name__)
-api = Api(users)
-
-
-class UserListAPI(Resource):
+"""class UserListAPI(Resource):
 
     def post(self):
         user = request(User)
@@ -55,4 +52,4 @@ class UserAPI(Resource):
 
 # Routes
 api.add_resource(UserListAPI, '/users')
-api.add_resource(UserAPI, '/users/<string:username>')
+api.add_resource(UserAPI, '/users/<string:username>')"""

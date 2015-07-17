@@ -16,22 +16,10 @@
 """
 
 from flask.ext.restful import Api
-from flask.ext.mongoengine import MongoEngine
+#from flask.ext.mongoengine import MongoEngine
 from flask.ext.bcrypt import Bcrypt
 
 
 api = Api(catch_all_404s=True)
-db = MongoEngine()
+db = None  #MongoEngine()
 bcrypt = Bcrypt()
-
-
-def init_api(app):
-    api.init_app(app)
-
-
-def init_db(app):
-    db.init_app(app)
-
-
-def init_bcrypt(app):
-    bcrypt.init_app(app)

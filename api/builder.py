@@ -15,36 +15,49 @@
     limitations under the License.
 """
 
+import logging
+
 from flask import Flask
-
 from werkzeug.utils import import_string
+from api.extensions import bcrypt, db, api
 
-#from fleegme.common.extensions import init_db, init_bcrypt, init_api
+
+app_name = 'api'
 
 
-def create_app(module=None):
+def create_app(filename):
+    """Initialize applcation with configs"""
+    app = Flask(app_name)
+    app.config.from_pyfile(filename)
 
-    # Initialize applcation
-    app = Flask('api')
-    app.config.from_pyfile('config.cfg')
-
-    # Register modules
-    if module:
-        if module not in app.config['APP_MODULES']:
-            msg = "Attribute '{0}' is not a valid module.".format(module)
-            raise AttributeError(msg)
-        app.register_blueprint(__build_blueprint(module))
-    else:
-        for module in app.config['APP_MODULES']:
-            app.register_blueprint(__build_blueprint(module))
-
-    # Initialize extensions
-    init_bcrypt(app)
-    init_db(app)
-    init_api(app)
+    configure_blueprints(app)
+    configure_extensions(app)
+    configure_logger(app)
 
     return app
 
 
-def __build_blueprint(module):
-    return import_string('api.{0}.controllers.{0}'.format(module))
+def configure_blueprints(app):
+    """Register modules"""
+    app.register_blueprint(
+                import_string('%s.routes.controllers.routes' % app_name))
+    app.register_blueprint(
+                import_string('%s.security.controllers.security' % app_name))
+
+
+def configure_extensions(app):
+    """Initialize extensions"""
+    bcrypt.init_app(app)
+    #db.init_app(app)
+    api.init_app(app)
+
+
+def configure_logger(app):
+    """Create log file to application"""
+    log_filename = "%s-%s" % (app.config['PROJECT_NAME'], app_name)
+    log_file = logging.FileHandler(
+                            filename=app.config['LOG_PATH'] % log_filename)
+    log_file.setFormatter(logging.Formatter(app.config['LOG_FORMAT']))
+    log_level = logging.DEBUG if app.config['CONSOLE_RUN_DEBUG'] else logging.INFO
+    log_file.setLevel(log_level)
+    app.logger.addHandler(log_file)

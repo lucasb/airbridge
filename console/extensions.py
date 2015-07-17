@@ -18,6 +18,5 @@
 #from flask.ext.mongoengine import MongoEngine
 from flask.ext.bcrypt import Bcrypt
 
-db = None
-#db = MongoEngine()
+db = None  #MongoEngine()
 bcrypt = Bcrypt()
