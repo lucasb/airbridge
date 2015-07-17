@@ -17,7 +17,5 @@
 
 from flask import Blueprint
 
-#from .models import User, Client
 
-
-access = Blueprint('access', __name__)
+services = Blueprint('services', __name__)

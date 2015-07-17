@@ -48,12 +48,12 @@ def configure_blueprints(app):
 def configure_extensions(app):
     """Initialize extensions"""
     bcrypt.init_app(app)
-    db.init_app(app)
+    #db.init_app(app)
 
 
 def configure_logger(app):
     """Create log file to application"""
-    log_filename = "%s_log" % app.config['PROJECT_NAME'] + app_name
+    log_filename = "%s-%s" % (app.config['PROJECT_NAME'], app_name)
     log_file = logging.FileHandler(
                             filename=app.config['LOG_PATH'] % log_filename)
     log_file.setFormatter(logging.Formatter(app.config['LOG_FORMAT']))

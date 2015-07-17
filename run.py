@@ -33,7 +33,7 @@ if len(sys.argv) > 1:
 
 try:
     for item in APPS:
-        app = getattr(sys.modules[__name__], "build_%s" % item)([config_file])
+        app = eval("build_%s('%s')" % (item, config_file))
         item = item.upper()
         app.run(host=app.config['%s_RUN_HOST' % item],
                 port=app.config['%s_RUN_PORT' % item],
