@@ -16,6 +16,8 @@
 """
 
 import sys
+#import thread
+from threading import Thread
 
 from api.builder import create_app as build_api
 from console.builder import create_app as build_console
@@ -28,16 +30,20 @@ APPS = {
 
 config_file = '../config.cfg'
 
-if len(sys.argv) > 1:
-    APPS = list({str(sys.argv[1])})
+
+def start_app(name):
+    app = eval("build_%s('%s')" % (name, config_file))
+    name = name.upper()
+    app.run(host=app.config['%s_RUN_HOST' % name],
+            port=app.config['%s_RUN_PORT' % name],
+            use_reloader=app.config['%s_RUN_USE_RELOADER' % name],
+            debug=app.config['%s_RUN_DEBUG' % name])
 
 try:
-    for item in APPS:
-        app = eval("build_%s('%s')" % (item, config_file))
-        item = item.upper()
-        app.run(host=app.config['%s_RUN_HOST' % item],
-                port=app.config['%s_RUN_PORT' % item],
-                use_reloader=app.config['%s_RUN_USE_RELOADER' % item],
-                debug=app.config['%s_RUN_DEBUG' % item])
+    if len(sys.argv) > 1:
+        start_app(str(sys.argv[1]))
+    else:
+        for item in APPS:
+            Thread(target=start_app, args=(item,)).start()
 except Exception:
     raise Exception('Errors found in application start.')
