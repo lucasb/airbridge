@@ -17,10 +17,16 @@ pip install -r requirements.txt
 RUN
 -------
 - Specific module
-```python run.py api```
+```
+python run.py api
+```
 
 - All modules
-```python run.py --all```
+```
+python run.py --all
+```
 
-For mor options use that
-```python run.py -h```
+For more options use that
+```
+python run.py -h
+```
