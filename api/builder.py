@@ -22,12 +22,12 @@ from werkzeug.utils import import_string
 from api.extensions import bcrypt, db, api
 
 
-app_name = 'api'
+MODULE = 'api'
 
 
 def create_app(filename):
     """Initialize applcation with configs"""
-    app = Flask(app_name)
+    app = Flask(MODULE)
     app.config.from_pyfile(filename)
 
     configure_blueprints(app)
@@ -40,9 +40,9 @@ def create_app(filename):
 def configure_blueprints(app):
     """Register modules"""
     app.register_blueprint(
-                import_string('%s.routes.controllers.routes' % app_name))
+                import_string('%s.routes.controllers.routes' % MODULE))
     app.register_blueprint(
-                import_string('%s.security.controllers.security' % app_name))
+                import_string('%s.security.controllers.security' % MODULE))
 
 
 def configure_extensions(app):
@@ -54,7 +54,7 @@ def configure_extensions(app):
 
 def configure_logger(app):
     """Create log file to application"""
-    log_filename = "%s-%s" % (app.config['PROJECT_NAME'], app_name)
+    log_filename = "%s-%s" % (app.config['PROJECT_NAME'], MODULE)
     log_file = logging.FileHandler(
                             filename=app.config['LOG_PATH'] % log_filename)
     log_file.setFormatter(logging.Formatter(app.config['LOG_FORMAT']))
