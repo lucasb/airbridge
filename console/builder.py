@@ -48,7 +48,7 @@ def configure_blueprints(app):
 def configure_extensions(app):
     """Initialize extensions"""
     bcrypt.init_app(app)
-    #db.init_app(app)
+    db.init_app(app)
 
 
 def configure_logger(app):

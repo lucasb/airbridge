@@ -17,7 +17,7 @@
 
 from flask import Blueprint
 
-#from .models import User, Client
+from .models import User, Client
 
 
 access = Blueprint('access', __name__)

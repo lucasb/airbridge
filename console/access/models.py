@@ -15,7 +15,7 @@
     limitations under the License.
 """
 
-from airbridge.common.database import db
+from console.extensions import db
 
 
 class User(db.Document):

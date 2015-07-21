@@ -15,8 +15,8 @@
     limitations under the License.
 """
 
-#from flask.ext.mongoengine import MongoEngine
+from flask.ext.mongoengine import MongoEngine
 from flask.ext.bcrypt import Bcrypt
 
-db = None  #MongoEngine()
+db = MongoEngine()
 bcrypt = Bcrypt()
