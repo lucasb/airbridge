@@ -1,0 +1,5 @@
+bcrypt==2.0.0
+mongoengine==0.10.0
+flask==0.10.1
+flask-restful==0.3.4
+flask-mongoengine==0.7.1
