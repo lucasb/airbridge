@@ -16,8 +16,19 @@
 """
 
 from flask import Blueprint
+from flask.ext.restful import Api, Resource
 
-from .models import User, Client
+#from .models import User, Client
 
 
 access = Blueprint('access', __name__)
+api = Api(access)
+
+
+class AccessApi(Resource):
+
+    def get(self):
+        return {'module': 'access'}
+
+
+api.add_resource(AccessApi, '/access')

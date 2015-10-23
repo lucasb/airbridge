@@ -16,6 +16,17 @@
 """
 
 from flask import Blueprint
+from flask.ext.restful import Api, Resource
 
 
 services = Blueprint('services', __name__)
+api = Api(services)
+
+
+class ServicesApi(Resource):
+
+    def get(self):
+        return {'module': 'services'}
+
+
+api.add_resource(ServicesApi, '/services')

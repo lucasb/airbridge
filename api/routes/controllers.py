@@ -16,40 +16,17 @@
 """
 
 from flask import Blueprint
-from flask.ext.restful import Api
+from flask.ext.restful import Api, Resource
 
 
 routes = Blueprint('routes', __name__)
 api = Api(routes)
 
 
-"""class UserListAPI(Resource):
-
-    def post(self):
-        user = request(User)
-        user = user.save()
-        return response(user, 201)
+class RoutesApi(Resource):
 
     def get(self):
-        return response(User.objects.all())
+        return {'module': 'routes'}
 
 
-class UserAPI(Resource):
-
-    def get(self, username):
-        return response(User.objects.get_or_404(username=username))
-
-    def put(self, username):
-        user = request(User)
-        user.update()
-        return response(user)
-
-    def delete(self, username):
-        user = User.get(username=username)
-        user.delete()
-        return response(user)
-
-
-# Routes
-api.add_resource(UserListAPI, '/users')
-api.add_resource(UserAPI, '/users/<string:username>')"""
+api.add_resource(RoutesApi, '/routes')

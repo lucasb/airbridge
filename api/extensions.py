@@ -17,9 +17,7 @@
 
 from flask.ext.restful import Api
 from flask.ext.mongoengine import MongoEngine
-from flask.ext.bcrypt import Bcrypt
 
 
 api = Api(catch_all_404s=True)
 db = MongoEngine()
-bcrypt = Bcrypt()

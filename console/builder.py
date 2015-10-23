@@ -19,7 +19,7 @@ import logging
 
 from flask import Flask
 from werkzeug.utils import import_string
-from console.extensions import bcrypt, db
+from console.extensions import db
 
 
 MODULE = 'console'
@@ -47,7 +47,6 @@ def configure_blueprints(app):
 
 def configure_extensions(app):
     """Initialize extensions"""
-    bcrypt.init_app(app)
     db.init_app(app)
 
 
