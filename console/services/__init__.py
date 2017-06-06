@@ -1,6 +1,6 @@
 # -*- config:utf-8 -*-
 """
-    Copyright 2014 Airbridge
+    Copyright 2015 Airbridge
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -14,22 +14,3 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 """
-
-from flask import Flask
-
-from werkzeug.utils import import_string
-
-from airbridge.common.database import set_db
-
-
-def create_app(module):
-
-    app = Flask('airbridge')
-    app.config.from_pyfile('config.cfg')
-
-    set_db(app)
-
-    blueprint = import_string('airbridge.{0}.views.{0}'.format(module))
-    app.register_blueprint(blueprint)
-
-    return app

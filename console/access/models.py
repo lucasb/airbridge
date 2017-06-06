@@ -1,6 +1,6 @@
 # -*- config:utf-8 -*-
 """
-    Copyright 2014 Airbridge
+    Copyright 2015 Airbridge
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,19 +15,16 @@
     limitations under the License.
 """
 
+from console.extensions import db
 
-# Application
-APPLICATION_ROOT = '/api/'
 
-# Run server
-RUN_DEBUG = True
-RUN_USE_RELOADER = True
-RUN_HOST = 'localhost'
-RUN_PORT = 5000
+class User(db.Document):
+    email = db.EmailField(primary_key=True)
+    username = db.StringField(unique=True)
+    password = db.StringField(required=True)
+    first_name = db.StringField(required=False)
+    last_name = db.StringField(required=False)
 
-# MongoDB
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
-MONGODB_DB = 'airbridge'
-MONGODB_USERNAME = None
-PASSWORD = None
+
+class Client(db.Document):
+    client_id = db.StringField(primary_key=True)

@@ -1,6 +1,6 @@
 # -*- config:utf-8 -*-
 """
-    Copyright 2014 Airbridge
+    Copyright 2015 Airbridge
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -14,3 +14,19 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 """
+
+from flask import Blueprint
+from flask.ext.restful import Api, Resource
+
+
+security = Blueprint('security', __name__)
+api = Api(security)
+
+
+class SecurityApi(Resource):
+
+    def get(self):
+        return {'module': 'security'}
+
+
+api.add_resource(SecurityApi, '/security')

@@ -1,6 +1,6 @@
 # -*- config:utf-8 -*-
 """
-    Copyright 2014 Airbridge
+    Copyright 2015 Airbridge
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
@@ -15,13 +15,20 @@
     limitations under the License.
 """
 
-from airbridge.common.database import db
+from flask import Blueprint
+from flask.ext.restful import Api, Resource
+
+#from .models import User, Client
 
 
-class User(db.Document):
+access = Blueprint('access', __name__)
+api = Api(access)
 
-    email = db.EmailField(primary_key=True)
-    username = db.StringField(unique=True)
-    password = db.StringField(required=True)
-    first_name = db.StringField(required=False)
-    last_name = db.StringField(required=False)
+
+class AccessApi(Resource):
+
+    def get(self):
+        return {'module': 'access'}
+
+
+api.add_resource(AccessApi, '/access')
