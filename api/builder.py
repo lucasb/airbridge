@@ -1,4 +1,5 @@
-# -*- config:utf-8 -*-
+#!/usr/bin/env python
+
 """
     Copyright 2015 Airbridge
 
@@ -40,9 +41,9 @@ def create_app(filename):
 def configure_blueprints(app):
     """Register modules"""
     app.register_blueprint(
-                import_string('%s.routes.controllers.routes' % MODULE))
+        import_string('%s.routes.controllers.routes' % MODULE))
     app.register_blueprint(
-                import_string('%s.security.controllers.security' % MODULE))
+        import_string('%s.security.controllers.security' % MODULE))
 
 
 def configure_extensions(app):
